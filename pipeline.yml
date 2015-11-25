@@ -1,0 +1,19 @@
+---
+jobs:
+- name: job-git-docker
+  public: true
+  plan:
+  - get: resource-tutorial
+  - put: machine-image
+  - task: hello-world
+    file: resource-tutorial/01_task_hello_world/task_hello_world.yml
+
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/getachew/concourse-tutorial.git
+
+- name: machine-image
+  type: docker-image
+  source: localhost:5000/concourse-tutorial-image
